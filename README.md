@@ -1,5 +1,10 @@
 # AI Mystery Room
 
+**🔴 Live Demo:** [Open AI Mystery Room](https://ai-mystery-room-chi.vercel.app/)
+
+An AI-powered mystery investigation game where players examine clues, investigate suspects, and solve fictional cases.
+
+
 AI Mystery Room turns a fictional premise into an investigation. The repository currently contains the React + Vite frontend, Tailwind design system, Express API, environment validation, Mongoose models, Zod case contracts, deterministic development fixtures, and backend Gemini case generation.
 
 Generated cases are validated before they are returned. MongoDB persistence is wired for cases, private solutions, and investigation sessions, but still needs verification against a real MongoDB instance. The deterministic development fixtures provide playable investigations without Gemini. When MongoDB is unavailable, fixtures and their sessions use process memory and session progress is lost on server restart. Generated cases return `persisted: false` when there is no database connection.
