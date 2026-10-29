@@ -80,7 +80,23 @@ router.post('/', async (request, response) => {
       ].includes(error.code);
       if (!fallbackEligible) throw error;
 
-      generated = mockCases.find(({ case: fixtureCase }) => fixtureCase.difficulty === parsed.data.difficulty);
+      const requestedCategory = parsed.data.category?.toLowerCase();
+
+      generated = mockCases.find(({ case: fixtureCase }) =>
+        fixtureCase.difficulty === parsed.data.difficulty &&
+        (
+          !requestedCategory ||
+          requestedCategory === 'any' ||
+          fixtureCase.category === requestedCategory
+        )
+      );
+
+      if (!generated && requestedCategory && requestedCategory !== 'any') {
+        generated = mockCases.find(({ case: fixtureCase }) =>
+          fixtureCase.difficulty === parsed.data.difficulty
+        );
+      }
+      
       if (!generated) throw error;
       generation = { method: 'prebuilt_fixture_fallback', reason: error.code };
     }
